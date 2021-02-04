@@ -1,14 +1,12 @@
-console.log('utilis.js')
+console.log('utils.js')
 
-const name = 'Valentina'
-const age = '24'
+const name = 'Sebastian'
 
-const add = function (a,b) {
+const add = function(a, b) {
     return a + b
 }
 
 module.exports = {
     name,
-    age,
     add
 }

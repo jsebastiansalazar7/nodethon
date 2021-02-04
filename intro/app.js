@@ -1,25 +1,27 @@
-const utils = require('./utils.js')
-const notes = require('./notes.js')
 const validator = require('validator')
 const chalk = require('chalk')
 
-console.log(utils.name, '\n' + utils.age)
+const utils = require('./utils.js')
+const notes = require('./notes.js')
 
-console.log(utils)
+const successTheme = chalk.green.bold
+const warningTheme = chalk.keyword('orange')
+const errorTheme = chalk.bgRed.bold
 
-console.log(utils.add(1,'h'))
+console.log('Utils module exports \n', utils)
+
+console.log(utils.name)
+
+console.log(utils.add(1, 2))
 
 console.log(notes.getNotes())
 
-console.log('Real email? ' + validator.isEmail('valensagnin@gmail.com'))
-console.log('Real URL? '+ validator.isURL('https://www.'))
+const email = 'email@email.com'
+console.log('\nIs ' + email + ' a valid email? ' + validator.isEmail(email))
 
-const error = chalk.bold.red
-const warning = chalk.bold.keyword('orange')
-const working = chalk.bold.blueBright
-const success = chalk.bold.green
-console.log(chalk.underline.bgWhiteBright.green.bold.inverse('Welcome!'))
-console.log(error('Wrong!'+ '\n'),warning('Warning!'+ '\n'), working('Working!'+ '\n'), success('Success!'+ '\n'))
+const url = 'www.website.com'
+console.log('Is ' + url + ' a valid url? ' + validator.isURL(url))
 
-
- 
+console.log(successTheme("Success!"))
+console.log(warningTheme("Warning!!"))
+console.log(errorTheme("Error!!!"))

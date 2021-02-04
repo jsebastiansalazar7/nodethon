@@ -1,7 +1,7 @@
 {
   "name": "intro",
   "version": "1.0.0",
-  "description": "node initial project",
+  "description": "Node initial project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,7 @@
     "exports",
     "basics"
   ],
-  "author": "Nina",
+  "author": "Nina & J",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
