@@ -16,6 +16,14 @@ const readNote = function (title) {
 
 }
 
+const listNotes = function() {
+    const notes = loadNotes()
+    notes.forEach(element => {
+        console.log(chalk.bold.green(element.title))
+        console.log(chalk.inverse(element.body + "\n"))
+    });
+}
+
 const addNotes = function(title, body) {
     // TODO: Add notes
     const notes = loadNotes()
@@ -52,5 +60,6 @@ const saveNotes = function (notes) {
 
 module.exports = {
     addNotes,
-    readNote
+    readNote,
+    listNotes
 }
