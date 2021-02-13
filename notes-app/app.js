@@ -18,7 +18,7 @@ yargs.command({
         }
     },
     handler: function(v) {
-        console.log('Adding a new note', '\ntitle: ' + v.title, '\nbody: ' +v.body)
+        notes.addNotes(v.title, v.body)
     }
 })
 
