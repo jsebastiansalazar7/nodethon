@@ -1,8 +1,19 @@
-const fs = require ('fs')
+const fs = require('fs')
+const chalk = require('chalk')
+
 const PATH = 'json/notes.json'
 
-const getNotes = function() {
-    return 'Your notes...'
+const readNote = function (title) {
+    const notes = loadNotes()
+    const noteToRead = notes.filter((note) => note.title === title)
+
+    if (noteToRead.length > 0) {
+        console.log(chalk.bold.green(title))
+        console.log(chalk.inverse(noteToRead[0].body))
+    } else {
+        console.log('The requested note does not exist')
+    }
+
 }
 
 const addNotes = function(title, body) {
@@ -24,7 +35,7 @@ const addNotes = function(title, body) {
     }
 }
 
-const loadNotes = function () {
+const loadNotes = function() {
     try {
         const data = fs.readFileSync(PATH, 'utf8')
         return JSON.parse(data)
@@ -40,6 +51,6 @@ const saveNotes = function (notes) {
 }
 
 module.exports = {
-    getNotes, 
-    addNotes
+    addNotes,
+    readNote
 }
