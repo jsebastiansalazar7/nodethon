@@ -13,14 +13,13 @@ const readNote = function (title) {
     } else {
         console.log('The requested note does not exist')
     }
-
 }
 
 const listNotes = function() {
     const notes = loadNotes()
-    notes.forEach(element => {
-        console.log(chalk.bold.green(element.title))
-        console.log(chalk.inverse(element.body + "\n"))
+    notes.forEach(note => {
+        console.log(chalk.bold.green(note.title))
+        console.log(chalk.inverse(note.body + "\n"))
     });
 }
 
