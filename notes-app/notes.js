@@ -24,7 +24,6 @@ const listNotes = function() {
 }
 
 const addNotes = function(title, body) {
-    // TODO: Add notes
     const notes = loadNotes()
 
     const newNote = {
