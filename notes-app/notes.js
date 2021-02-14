@@ -1,29 +1,30 @@
 const fs = require('fs')
-const chalk = require('chalk')
+const format = require('./utils/logFormat.js')
 
 const PATH = 'json/notes.json'
 
-const readNote = function (title) {
+const readNote = (title) => {
     const notes = loadNotes()
-    const noteToRead = notes.filter((note) => note.title === title)
-
-    if (noteToRead.length > 0) {
-        console.log(chalk.bold.green(title))
-        console.log(chalk.inverse(noteToRead[0].body))
+    const note = notes.find((note) => note.title === title)
+    
+    if (note) {
+        console.log(format.boldGreen(title))
+        console.log(format.inverse(note.body))
+        
     } else {
         console.log('The requested note does not exist')
     }
 }
 
-const listNotes = function() {
+const listNotes = () => {
     const notes = loadNotes()
     notes.forEach(note => {
-        console.log(chalk.bold.green(note.title))
-        console.log(chalk.inverse(note.body + "\n"))
+        console.log(format.boldGreen(note.title))
+        console.log(format.inverse(note.body + "\n"))
     });
 }
 
-const addNotes = function(title, body) {
+const addNotes = (title, body) => {
     const notes = loadNotes()
 
     const newNote = {
@@ -31,30 +32,30 @@ const addNotes = function(title, body) {
         body: body
     }
 
-    const duplicateNotes = notes.filter((note) => note.title === newNote.title)
+    const duplicateNote = notes.find((note) => note.title === newNote.title)
 
-    if (duplicateNotes.length === 0) {
+    if (!duplicateNote) {
         notes.push(newNote)
         saveNotes(notes)
-        console.log(`The note '${title}' has been added!`)
+        console.log(`The note '${format.success(title)}' has been added!`)
     } else {
         console.log("Duplicated note")
     }
 }
 
-const removeNote = function (title) {
+const removeNote = (title) => {
     const notes = loadNotes()
     
-    const notesToKeep = notes.filter((notes) => title != notes.title)
+    const notesToKeep = notes.filter((notes) => title !== notes.title)
     if (notesToKeep.length < notes.length) {
         saveNotes(notesToKeep)
-        console.log(`The note '${title}' has been deleted`)
+        console.log(`The note '${format.warning(title)}' has been deleted`)
     } else {
         console.log("That title does not exist")
     }
 }
 
-const loadNotes = function () {
+const loadNotes = () => {
     try {
         const data = fs.readFileSync(PATH, 'utf8')
         return JSON.parse(data)
@@ -63,7 +64,7 @@ const loadNotes = function () {
     }
 }
 
-const saveNotes = function (notes) {
+const saveNotes =  (notes) => {
     const dataJson = JSON.stringify(notes)
     fs.writeFileSync(PATH, dataJson)
 }
