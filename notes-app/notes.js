@@ -5,11 +5,12 @@ const PATH = 'json/notes.json'
 
 const readNote = (title) => {
     const notes = loadNotes()
-    const noteToRead = notes.filter((note) => note.title === title)
-
-    if (noteToRead.length > 0) {
+    const note = notes.find((note) => note.title === title)
+    
+    if (note) {
         console.log(format.boldGreen(title))
-        console.log(format.inverse(noteToRead[0].body))
+        console.log(format.inverse(note.body))
+        
     } else {
         console.log('The requested note does not exist')
     }
@@ -31,9 +32,9 @@ const addNotes = (title, body) => {
         body: body
     }
 
-    const duplicateNotes = notes.filter((note) => note.title === newNote.title)
+    const duplicateNote = notes.find((note) => note.title === newNote.title)
 
-    if (duplicateNotes.length === 0) {
+    if (!duplicateNote) {
         notes.push(newNote)
         saveNotes(notes)
         console.log(`The note '${format.success(title)}' has been added!`)
