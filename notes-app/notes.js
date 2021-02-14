@@ -3,7 +3,7 @@ const format = require('./utils/logFormat.js')
 
 const PATH = 'json/notes.json'
 
-const readNote = function (title) {
+const readNote = (title) => {
     const notes = loadNotes()
     const noteToRead = notes.filter((note) => note.title === title)
 
@@ -15,7 +15,7 @@ const readNote = function (title) {
     }
 }
 
-const listNotes = function() {
+const listNotes = () => {
     const notes = loadNotes()
     notes.forEach(note => {
         console.log(format.boldGreen(note.title))
@@ -23,7 +23,7 @@ const listNotes = function() {
     });
 }
 
-const addNotes = function(title, body) {
+const addNotes = (title, body) => {
     const notes = loadNotes()
 
     const newNote = {
@@ -42,7 +42,7 @@ const addNotes = function(title, body) {
     }
 }
 
-const removeNote = function (title) {
+const removeNote = (title) => {
     const notes = loadNotes()
     
     const notesToKeep = notes.filter((notes) => title !== notes.title)
@@ -54,7 +54,7 @@ const removeNote = function (title) {
     }
 }
 
-const loadNotes = function () {
+const loadNotes = () => {
     try {
         const data = fs.readFileSync(PATH, 'utf8')
         return JSON.parse(data)
@@ -63,7 +63,7 @@ const loadNotes = function () {
     }
 }
 
-const saveNotes = function (notes) {
+const saveNotes =  (notes) => {
     const dataJson = JSON.stringify(notes)
     fs.writeFileSync(PATH, dataJson)
 }
