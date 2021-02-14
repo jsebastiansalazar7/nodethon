@@ -24,7 +24,6 @@ const listNotes = function() {
 }
 
 const addNotes = function(title, body) {
-    // TODO: Add notes
     const notes = loadNotes()
 
     const newNote = {
@@ -37,12 +36,25 @@ const addNotes = function(title, body) {
     if (duplicateNotes.length === 0) {
         notes.push(newNote)
         saveNotes(notes)
+        console.log(`The note '${title}' has been added!`)
     } else {
         console.log("Duplicated note")
     }
 }
 
-const loadNotes = function() {
+const removeNote = function (title) {
+    const notes = loadNotes()
+    
+    const notesToKeep = notes.filter((notes) => title != notes.title)
+    if (notesToKeep.length < notes.length) {
+        saveNotes(notesToKeep)
+        console.log(`The note '${title}' has been deleted`)
+    } else {
+        console.log("That title does not exist")
+    }
+}
+
+const loadNotes = function () {
     try {
         const data = fs.readFileSync(PATH, 'utf8')
         return JSON.parse(data)
@@ -54,11 +66,11 @@ const loadNotes = function() {
 const saveNotes = function (notes) {
     const dataJson = JSON.stringify(notes)
     fs.writeFileSync(PATH, dataJson)
-    console.log("New note added!")
 }
 
 module.exports = {
     addNotes,
     readNote,
-    listNotes
+    listNotes,
+    removeNote
 }
