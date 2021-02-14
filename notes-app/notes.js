@@ -1,5 +1,5 @@
 const fs = require('fs')
-const chalk = require('chalk')
+const format = require('./utils/logFormat.js')
 
 const PATH = 'json/notes.json'
 
@@ -8,8 +8,8 @@ const readNote = function (title) {
     const noteToRead = notes.filter((note) => note.title === title)
 
     if (noteToRead.length > 0) {
-        console.log(chalk.bold.green(title))
-        console.log(chalk.inverse(noteToRead[0].body))
+        console.log(format.boldGreen(title))
+        console.log(format.inverse(noteToRead[0].body))
     } else {
         console.log('The requested note does not exist')
     }
@@ -18,8 +18,8 @@ const readNote = function (title) {
 const listNotes = function() {
     const notes = loadNotes()
     notes.forEach(note => {
-        console.log(chalk.bold.green(note.title))
-        console.log(chalk.inverse(note.body + "\n"))
+        console.log(format.boldGreen(note.title))
+        console.log(format.inverse(note.body + "\n"))
     });
 }
 
@@ -36,7 +36,7 @@ const addNotes = function(title, body) {
     if (duplicateNotes.length === 0) {
         notes.push(newNote)
         saveNotes(notes)
-        console.log(`The note '${title}' has been added!`)
+        console.log(`The note '${format.success(title)}' has been added!`)
     } else {
         console.log("Duplicated note")
     }
@@ -45,10 +45,10 @@ const addNotes = function(title, body) {
 const removeNote = function (title) {
     const notes = loadNotes()
     
-    const notesToKeep = notes.filter((notes) => title != notes.title)
+    const notesToKeep = notes.filter((notes) => title !== notes.title)
     if (notesToKeep.length < notes.length) {
         saveNotes(notesToKeep)
-        console.log(`The note '${title}' has been deleted`)
+        console.log(`The note '${format.warning(title)}' has been deleted`)
     } else {
         console.log("That title does not exist")
     }
