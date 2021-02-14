@@ -33,7 +33,7 @@ yargs.command({
         }
     },
     handler: function(argv) {
-        console.log('Removing the note', argv)
+        notes.removeNote(argv.title)
     }
 })
 
