@@ -1,16 +1,6 @@
 const request = require("postman-request")
+const uriBuilder = require("./uriBuilder")
 
-const buildUri = (base, path, queryParams) => {
-    const keyValuePairs = Object.entries(queryParams)
-    let queryValues = ''
-    for (let i = 0; i < keyValuePairs.length - 1; i++) {
-        queryValues = queryValues + keyValuePairs[i][0] + '=' + keyValuePairs[i][1] + '&'
-    }
-
-    queryValues = queryValues + keyValuePairs[keyValuePairs.length - 1][0] + '=' + 
-        keyValuePairs[keyValuePairs.length - 1][1]
-    return base + path + '?' + queryValues
-}
 
 const buildCoordinatesPair = (coordinates) => {
     const values = Object.values(coordinates)
@@ -29,9 +19,10 @@ const queryParams = {
     query: buildCoordinatesPair(coordinates)
 }
 
-const uri = buildUri(base, path, queryParams)
+const uri = uriBuilder.buildUri(base, path, queryParams)
 
-const weather = request(uri, (error, response, body) => {
+const weather = () => {
+    request(uri, (error, response, body) => {
     const bodyJson = JSON.parse(body)
     const res = {
         temperature: bodyJson.current.temperature,
@@ -43,4 +34,6 @@ const weather = request(uri, (error, response, body) => {
         description: bodyJson.current.weather_descriptions
     }
     console.log(res)
-})
+    })
+}
+weather(uri)
