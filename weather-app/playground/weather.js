@@ -28,12 +28,16 @@ const weather = () => {
         temperature: bodyJson.current.temperature,
         thermalSensation: bodyJson.current.feelslike,
         windSpeed: bodyJson.current.wind_speed,
+        precipitation: bodyJson.current.precip,
         pressure: bodyJson.current.pressure,
         humidity: bodyJson.current.humidity,
         visibility: bodyJson.current.visibility,
         description: bodyJson.current.weather_descriptions
     }
     console.log(res)
+    console.log(`It is currently ${res.temperature} ºC. The humidity is ${res.humidity} and the chance of rain is ${res.precipitation}`)
+
+    // node weather.js forecast --unit=s
     })
 }
 weather(uri)
