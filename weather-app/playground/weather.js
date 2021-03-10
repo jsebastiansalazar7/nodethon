@@ -4,6 +4,20 @@ const uriBuilder = require("./uriBuilder")
 const base = 'http://api.weatherstack.com'
 const path = '/current'
 
+const loadNotationInfo = (searchInfo, unitValue) => {
+    switch (unitValue) {
+        case 'F':
+            searchInfo.temperatureUnit = 'ºF'
+            searchInfo.notation = 'f'
+            break;
+        case 'K':
+            searchInfo.temperatureUnit = 'K'
+            searchInfo.notation = 's';
+        default:
+            break;
+    }
+}
+
 const buildCoordinatesPair = (coordinates) => {
     const values = Object.values(coordinates)
     return values[0] + ',' + values[1]
@@ -48,5 +62,6 @@ const getWeatherInfo = (searchInfo) => {
 }
 
 module.exports = {
+    loadNotationInfo,
     getWeatherInfo
 }

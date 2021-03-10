@@ -27,17 +27,7 @@ yargs.command({
     handler(u) {
         if (u.unit !== undefined) {
             const unitValue = u.unit.toUpperCase()
-            switch (unitValue) {
-                case 'F':
-                    searchInfo.temperatureUnit = 'ºF'
-                    searchInfo.notation = 'f'
-                    break;
-                case 'K':
-                    searchInfo.temperatureUnit = 'K'
-                    searchInfo.notation = 's';
-                default:
-                    break;
-            }
+            weather.loadNotationInfo(searchInfo, unitValue)
         }
         if (u.city.length === 0) {
             throw new Error('A city name must be provided')
@@ -74,17 +64,7 @@ yargs.command({
     handler(u) {
         if (u.unit !== undefined) {
             const unitValue = u.unit.toUpperCase()
-            switch (unitValue) {
-                case 'F':
-                    searchInfo.temperatureUnit = 'ºF'
-                    searchInfo.notation = 'f'
-                    break;
-                case 'K':
-                    searchInfo.temperatureUnit = 'K'
-                    searchInfo.notation = 's';
-                default:
-                    break;
-            }
+            weather.loadNotationInfo(searchInfo, unitValue)
         }
         if (u.longitude.length !== 0 && u.latitude.length !== 0) {
             searchInfo.place = {
