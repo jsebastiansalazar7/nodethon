@@ -1,39 +1,52 @@
 const request = require("postman-request")
 const uriBuilder = require("./uriBuilder")
 
+const base = 'http://api.weatherstack.com'
+const path = '/current'
 
 const buildCoordinatesPair = (coordinates) => {
     const values = Object.values(coordinates)
     return values[0] + ',' + values[1]
 }
 
-const base = 'http://api.weatherstack.com'
-const path = '/current'
-
-const coordinates = {
-    longitude: 6.230833,
-    latitude: -75.590553
-}
-const queryParams = {
-    access_key: '19192021767478bf06d972945cd0e22a', 
-    query: buildCoordinatesPair(coordinates)
-}
-
-const uri = uriBuilder.buildUri(base, path, queryParams)
-
-const weather = () => {
+const getWeather = (uri, searchInfo) => {
     request(uri, (error, response, body) => {
         const bodyJson = JSON.parse(body)
-        const res = {
-            temperature: bodyJson.current.temperature,
-            thermalSensation: bodyJson.current.feelslike,
-            windSpeed: bodyJson.current.wind_speed,
-            pressure: bodyJson.current.pressure,
-            humidity: bodyJson.current.humidity,
-            visibility: bodyJson.current.visibility,
-            description: bodyJson.current.weather_descriptions
+        if (bodyJson.error !== 'undefined') {
+            const res = {
+                temperature: bodyJson.current.temperature,
+                thermalSensation: bodyJson.current.feelslike,
+                windSpeed: bodyJson.current.wind_speed,
+                precipitation: bodyJson.current.precip,
+                pressure: bodyJson.current.pressure,
+                humidity: bodyJson.current.humidity,
+                visibility: bodyJson.current.visibility,
+                description: bodyJson.current.weather_descriptions
+            }
+            console.log(`It is currently ${res.description} ${res.temperature} ${searchInfo.temperatureUnit}, ` + 
+                `but feels like ${res.thermalSensation} ${searchInfo.temperatureUnit}. ` +
+                `The humidity is ${res.humidity} g/m3 ` +
+                `at ${bodyJson.location.name}, ${bodyJson.location.country}`)
+        } else {
+            console.log(`Weather information not found for the provided location ${JSON.stringify(notationInfo.place)}`)
         }
-        console.log(res)
     })
 }
-weather(uri)
+
+const getWeatherInfo = (searchInfo) => {
+    const queryParams = {
+        access_key: '19192021767478bf06d972945cd0e22a', 
+        query: searchInfo.place.latitude === undefined ? 
+            searchInfo.place : 
+            buildCoordinatesPair(searchInfo.place),
+        units: searchInfo.notation
+    }
+
+    const uri = uriBuilder.buildUri(base, path, queryParams)
+
+    getWeather(uri, searchInfo)
+}
+
+module.exports = {
+    getWeatherInfo
+}
