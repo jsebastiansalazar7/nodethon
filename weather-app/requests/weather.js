@@ -32,7 +32,7 @@ const getWeather = (uri, searchInfo) => {
 
         const bodyJson = JSON.parse(body)
     
-        if (bodyJson.error !== undefined) {
+        if (bodyJson.error) {
             console.log(`Code: ${bodyJson.error.code} ` + '\n' +
             `Type: ${bodyJson.error.type} ` + '\n' +
             `Info: ${bodyJson.error.info}.`)

@@ -24,7 +24,7 @@ const geolocalization = (uri) => {
 
         const bodyJson = JSON.parse(body)
 
-        if (bodyJson.message !== undefined) {
+        if (bodyJson.message) {
             console.log(`Message: `, bodyJson.message)
         } else {
             const place = bodyJson.features[0].place_name
