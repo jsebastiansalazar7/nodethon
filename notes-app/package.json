@@ -1,22 +1,21 @@
 {
-  "name": "intro",
+  "name": "notes-app",
   "version": "1.0.0",
-  "description": "Node initial project",
+  "description": "Notes app",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "fs",
-    "require",
-    "npm",
-    "exports",
-    "basics"
+    "notes",
+    "yargs",
+    "modules",
+    "system"
   ],
-  "author": "Nina & J",
+  "author": "J & V",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
-    "validator": "^13.5.2"
+    "yargs": "^16.2.0"
   }
 }
