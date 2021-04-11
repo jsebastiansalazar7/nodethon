@@ -1,5 +1,5 @@
 const request = require("postman-request")
-const uriBuilder = require("./uriBuilder")
+const uriBuilder = require("../utils/uriBuilder")
 
 const base = 'http://api.weatherstack.com'
 const path = '/current'

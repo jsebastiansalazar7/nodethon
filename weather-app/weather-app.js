@@ -1,5 +1,5 @@
 const yargs = require('yargs')
-const weather = require('./weather.js')
+const weather = require('./requests/weather.js')
 
 let searchInfo = {
     temperatureUnit: 'ºC',
