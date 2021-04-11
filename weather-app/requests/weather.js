@@ -25,8 +25,18 @@ const buildCoordinatesPair = (coordinates) => {
 
 const getWeather = (uri, searchInfo) => {
     request(uri, (error, response, body) => {
+        if (error !== null) {
+            console.log('A General Error occured when attempting to retrieve the weather forecast')
+            return
+        } 
+
         const bodyJson = JSON.parse(body)
-        if (bodyJson.error !== 'undefined') {
+    
+        if (bodyJson.error) {
+            console.log(`Code: ${bodyJson.error.code} ` + '\n' +
+            `Type: ${bodyJson.error.type} ` + '\n' +
+            `Info: ${bodyJson.error.info}.`)
+        } else {        
             const res = {
                 temperature: bodyJson.current.temperature,
                 thermalSensation: bodyJson.current.feelslike,
@@ -37,12 +47,12 @@ const getWeather = (uri, searchInfo) => {
                 visibility: bodyJson.current.visibility,
                 description: bodyJson.current.weather_descriptions
             }
-            console.log(`It is currently ${res.description} ${res.temperature} ${searchInfo.temperatureUnit}, ` + 
-                `but feels like ${res.thermalSensation} ${searchInfo.temperatureUnit}. ` +
-                `The humidity is ${res.humidity} g/m3 ` +
-                `at ${bodyJson.location.name}, ${bodyJson.location.country}`)
-        } else {
-            console.log(`Weather information not found for the provided location ${JSON.stringify(notationInfo.place)}`)
+
+            thermalSence = (res.temperature === res.thermalSensation) ? `and it feels the same.` : `but feels like ${res.thermalSensation} ${searchInfo.temperatureUnit}.` 
+
+            console.log(`At ${bodyJson.location.name}-${bodyJson.location.country},`+` It is currently ${res.temperature} ${searchInfo.temperatureUnit}, `+ 
+                thermalSence,'\n' +
+                `The weather is ${res.description} and the humidity is ${res.humidity} g/m3.`)
         }
     })
 }

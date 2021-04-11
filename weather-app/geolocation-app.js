@@ -13,7 +13,11 @@ yargs.command({
         }
     },
     handler(s) {
-        geolocation.getCoordinates(s.place)
+        if (s.place.length === 0) {
+            console.error("A place must be provided")
+        } else {
+            geolocation.getCoordinates(s.place)
+        }  
     }
 })
 yargs.parse()

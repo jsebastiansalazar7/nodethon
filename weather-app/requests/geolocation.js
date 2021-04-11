@@ -17,10 +17,20 @@ const params = {
 
 const geolocalization = (uri) => {
     request(uri, (error, response, body) => {
-        const jsonbody = JSON.parse(body)
-        const place = jsonbody.features[0].place_name
-        const coordinates = jsonbody.features[0].center
-        console.log(`Place: ${place},  Latitude: ${coordinates[1]}, Longitude: ${coordinates[0]},`)
+        if (error !== null) {
+            console.log('A General Error occured when attempting to retrieve the weather forecast')
+            return
+        }
+
+        const bodyJson = JSON.parse(body)
+
+        if (bodyJson.message) {
+            console.log(`Message: `, bodyJson.message)
+        } else {
+            const place = bodyJson.features[0].place_name
+            const coordinates = bodyJson.features[0].center
+            console.log(`Place: ${place},  Latitude: ${coordinates[1]}, Longitude: ${coordinates[0]}.`)
+        }
     })
 }
 
