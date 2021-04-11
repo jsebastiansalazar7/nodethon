@@ -30,11 +30,11 @@ yargs.command({
             weather.loadNotationInfo(searchInfo, unitValue)
         }
         if (u.city.length === 0) {
-            throw new Error('A city name must be provided')
+            console.error('A city name must be provided')
         } else {
             searchInfo.place = u.city
+            weather.getWeatherInfo(searchInfo)
         }
-        weather.getWeatherInfo(searchInfo)
     }
 })
 
