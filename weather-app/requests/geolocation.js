@@ -1,5 +1,5 @@
 const request = require('postman-request')
-const uriBuilder = require('./uriBuilder')
+const uriBuilder = require('../utils/uriBuilder')
 
 let path
 const BASE = "https://api.mapbox.com"

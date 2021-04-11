@@ -1,5 +1,5 @@
 const yargs = require('yargs')
-const geolocation = require('./geolocation.js')
+const geolocation = require('./requests/geolocation.js')
 
 yargs.command({
     command: 'search',
