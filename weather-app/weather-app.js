@@ -33,8 +33,8 @@ yargs.command({
             console.error('A city name must be provided')
         } else {
             searchInfo.place = u.city
+            weather.getWeatherInfo(searchInfo)
         }
-        weather.getWeatherInfo(searchInfo)
     }
 })
 
